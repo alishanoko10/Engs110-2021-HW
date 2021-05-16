@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+  FILE *output;
+  FILE *file;
+  int valueRead;
+  int *numbers = NULL;
+  int sum=0;
+  int count = 1;
+  int idx;
+
+  file = fopen("data.txt","rb+");
+
+  while( fscanf(file,"%d",&valueRead) != EOF )
+
+  {
+
+
+    if( numbers == NULL )
+
+     {
+
+       numbers = malloc(sizeof(valueRead));
+       *numbers = valueRead;
+
+     }
+
+    else
+    {
+       count++;
+       numbers = realloc(numbers,sizeof(numbers)*count);
+       idx = count -1;
+       *(numbers+idx) = valueRead;
+
+    }  
+
+  }   
+
+
+
+
+   valueRead = 0;
+
+    while( idx >= 0 )
+    {
+        sum+=*(numbers+valueRead);
+        idx--;
+        valueRead ++;
+    }
+    printf("the sum value is %d\r\n",sum);
+  
+    output = fopen("results.txt", "w");
+
+    if(output == NULL)
+    {
+        
+        printf("Error while creating file\n");
+        exit(EXIT_FAILURE);
+    }
+
+   fprintf(output, "%d", sum);
+
+    fclose(output);
+
+    printf("File saved \n");
+
+
+    return 0;
+    fclose(file);
+
+    free(numbers);
+    numbers = NULL;
+
+
+}
