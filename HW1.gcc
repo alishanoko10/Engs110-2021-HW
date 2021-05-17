@@ -1,0 +1,31 @@
+#include <stdio.h>
+int main() {
+    int i, n, n1 = 0, n2 = 1;
+    int nxt = n1 + n2;
+    int sum=0;
+    printf("Enter your age: ");
+    scanf("%d", &n);
+    printf("Fibonacci Series: %d, %d, ", n1, n2);
+
+    for (i = 1; i <= n; ++i) {
+        if(nxt<n){
+         printf("%d, ", nxt);
+        n1 = n2;
+        n2 = nxt;
+        nxt = n1 + n2; 
+        sum=sum+nxt;
+        }
+        
+    }
+    long binary = 0;
+    int remaind, idx = 1, step = 1;
+    while (sum != 0) {
+        remaind = sum % 2;
+        sum /= 2;
+        binary = binary + remaind * idx;
+        idx = idx*10;
+    }
+    printf("\nThe sum is: %d ", sum);
+    printf("\nThe sum in binary is: %lu ", binary);
+    return 0;
+}
